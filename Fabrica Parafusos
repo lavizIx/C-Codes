@@ -1,0 +1,57 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+const int TAMANHO_AMOSTRA = 6;
+
+struct Parafuso {
+    float peso;
+    float comprimento;
+};
+
+int main() {
+    Parafuso amostra[TAMANHO_AMOSTRA];
+    float somaPeso = 0, somaComprimento = 0;
+    float pesoMedio, comprimentoMedio;
+    int acimaMedia = 0;
+    float maxComprimento, minComprimento;
+
+    for (int i = 0; i < TAMANHO_AMOSTRA; i++) {
+        cout << "Parafuso " << i + 1 << endl;
+        cout << "Peso (g): ";
+        cin >> amostra[i].peso;
+        cout << "Comprimento (cm): ";
+        cin >> amostra[i].comprimento;
+
+        somaPeso += amostra[i].peso;
+        somaComprimento += amostra[i].comprimento;
+
+        if (i == 0) {
+            maxComprimento = minComprimento = amostra[i].comprimento;
+        } else {
+            if (amostra[i].comprimento > maxComprimento)
+                maxComprimento = amostra[i].comprimento;
+            if (amostra[i].comprimento < minComprimento)
+                minComprimento = amostra[i].comprimento;
+        }
+    }
+
+    pesoMedio = somaPeso / TAMANHO_AMOSTRA;
+    comprimentoMedio = somaComprimento / TAMANHO_AMOSTRA;
+
+
+    for (int i = 0; i < TAMANHO_AMOSTRA; i++) {
+        if (amostra[i].peso > pesoMedio)
+            acimaMedia++;
+    }
+    
+    cout << fixed << setprecision(2);
+    cout << "\nPeso médio: " << pesoMedio << " g\n";
+    cout << "Comprimento médio: " << comprimentoMedio << " cm\n";
+    cout << "Percentagem de parafusos com peso acima da média: "
+         << (acimaMedia * 100.0 / TAMANHO_AMOSTRA) << "%\n";
+    cout << "Diferença entre o parafuso mais comprido e o mais curto: "
+         << (maxComprimento - minComprimento) << " cm\n";
+
+    return 0;
+}
